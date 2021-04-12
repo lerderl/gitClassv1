@@ -113,7 +113,7 @@ class Budget:
     def category_balance(self):
         print(" ")
         print("*******************************************************************************************************")
-        print("YOUR BALANCE")
+        print("CATEGORY BALANCE")
         print("Your balances are:")
         print(f"Food: ${self.food_balance}")
         print(f"Clothing: ${self.clothing_balance}")
