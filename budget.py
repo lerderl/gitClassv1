@@ -7,13 +7,15 @@ class Budget:
         self.entertainment = entertainment
         print(" ")
         print("*******************************************************************************************************")
-        print("INITIAL DEPOSIT OPERATIONS")
-        self.food_balance = int(input("Enter how much you want to deposit for food\n"))
-        self.clothing_balance = int(input("Enter how much you want to deposit for clothing\n"))
-        self.entertainment_balance = int(input("Enter how much you want to deposit for entertainment\n"))
+        self.food_balance = 0
+        self.clothing_balance = 0
+        self.entertainment_balance = 0
         self.food_withdrawal = 0
         self.clothing_withdrawal = 0
         self.entertainment_withdrawal = 0
+        self.food_deposit = 0
+        self.clothing_deposit = 0
+        self.entertainment_deposit = 0
 
     # Function to prompt user about which operation he/she wants to perform
     def operations(self):
@@ -46,7 +48,6 @@ class Budget:
         elif selected_options == 9:
             self.entertainment_to_cloth()
         elif selected_options == 10:
-            print("Thank you for your patronage")
             exit()
         else:
             print("Please enter a valid option")
@@ -56,13 +57,24 @@ class Budget:
     def deposit(self):
         print(" ")
         print("*******************************************************************************************************")
-        self.food_balance += int(input("Enter how much you want to deposit for food\n"))
-        self.clothing_balance += int(input("Enter how much you want to deposit for clothing\n"))
-        self.entertainment_balance += int(input("Enter how much you want to deposit for entertainment\n"))
+        user_option = int(input("What category do you want to deposit into?\nThe available options are:\n1. Food\n2. "
+                                "Clothing\n3. Entertainment\n"))
+        if user_option == 1:
+            self.food_deposit = int(input("Enter how much you want to deposit for food\n"))
+            self.food_balance += self.food_deposit
+            print(f"You have successfully deposited ${self.food_deposit}")
+        elif user_option == 2:
+            self.clothing_deposit = int(input("Enter how much you want to deposit for clothing\n"))
+            self.clothing_balance += self.clothing_deposit
+            print(f"You have successfully deposited ${self.clothing_deposit}")
+        elif user_option == 3:
+            self.entertainment_deposit = int(input("Enter how much you want to deposit for entertainment\n"))
+            self.entertainment_balance += self.entertainment_deposit
+            print(f"You have successfully deposited ${self.entertainment_deposit}")
+        else:
+            print("Invalid option. Please try again")
+            self.deposit()
         print(" ")
-        # print("YOUR DEPOSITS")
-        # print(f"You deposited into the following accounts:\nFood: ${self.food_balance}\n"
-        # f"Clothing: ${self.clothing_balance}\nEntertainment: ${self.entertainment_balance}")
         self.options()
 
     # Fund withdrawal function
@@ -70,12 +82,32 @@ class Budget:
         print(" ")
         print("*******************************************************************************************************")
         print("WITHDRAWAL OPERATIONS")
-        self.food_withdrawal = int(input("Enter how much do you want to withdraw from food\n"))
-        self.food_balance -= self.food_withdrawal
-        self.clothing_withdrawal = int(input("Enter how much do you want to withdraw from clothing\n"))
-        self.clothing_balance -= self.clothing_withdrawal
-        self.entertainment_withdrawal = int(input("Enter how much do you want to withdraw from entertainment\n"))
-        self.entertainment_balance -= self.entertainment_withdrawal
+        user_option = int(input("What category do you want to withdraw from?\nThe available options are:\n1. Food\n2. "
+                                "Clothing\n3. Entertainment\n"))
+        if user_option == 1:
+            self.food_withdrawal = int(input("Enter how much do you want to withdraw from food\n"))
+            if self.food_withdrawal > self.food_balance:
+                print("Insufficient Funds")
+                self.options()
+            else:
+                self.food_balance -= self.food_withdrawal
+        elif user_option == 2:
+            self.clothing_withdrawal = int(input("Enter how much do you want to withdraw from clothing\n"))
+            if self.clothing_withdrawal > self.clothing_balance:
+                print("Insufficient Funds")
+                self.options()
+            else:
+                self.clothing_balance -= self.clothing_withdrawal
+        elif user_option == 3:
+            self.entertainment_withdrawal = int(input("Enter how much do you want to withdraw from entertainment\n"))
+            if self.entertainment_withdrawal > self.entertainment_balance:
+                print("Insufficient Funds")
+                self.options()
+            else:
+                self.entertainment_balance -= self.entertainment_withdrawal
+        else:
+            print("Invalid option. Please try again")
+            self.withdrawal()
 
     # Function to display balance for each category
     def category_balance(self):
@@ -95,7 +127,7 @@ class Budget:
         print("FOOD TO CLOTH TRANSFER")
         self.withdrawal()
         self.clothing_balance = self.clothing_balance + self.food_withdrawal
-        print(f"Clothing balance = {self.clothing_balance}")
+        print(f"Clothing balance = ${self.clothing_balance}")
         self.options()
 
     # Function to display balance after transfer of funds from food to entertainment category
@@ -105,7 +137,7 @@ class Budget:
         print("FOOD TO ENTERTAINMENT TRANSFER")
         self.withdrawal()
         self.entertainment_balance = self.entertainment_balance + self.food_withdrawal
-        print(f"Entertainment balance = {self.entertainment_balance}")
+        print(f"Entertainment balance = ${self.entertainment_balance}")
         self.options()
 
     # Function to display balance after transfer of funds from cloth to food category
@@ -115,7 +147,7 @@ class Budget:
         print("CLOTH TO FOOD TRANSFER")
         self.withdrawal()
         self.food_balance = self.food_balance + self.clothing_withdrawal
-        print(f"Food balance = {self.food_balance}")
+        print(f"Food balance = ${self.food_balance}")
         self.options()
 
     # Function to display balance after transfer of funds from cloth to entertainment category
@@ -125,7 +157,7 @@ class Budget:
         print("CLOTH TO ENTERTAINMENT TRANSFER")
         self.withdrawal()
         self.entertainment_balance = self.entertainment_balance + self.clothing_withdrawal
-        print(f"Entertainment balance = {self.entertainment_balance}")
+        print(f"Entertainment balance = ${self.entertainment_balance}")
         self.options()
 
     # Function to display balance after transfer of funds from entertainment to food category
@@ -135,7 +167,7 @@ class Budget:
         print("ENTERTAINMENT TO FOOD TRANSFER")
         self.withdrawal()
         self.food_balance = self.food_balance + self.entertainment_withdrawal
-        print(f"Food balance = {self.food_balance}")
+        print(f"Food balance = ${self.food_balance}")
         self.options()
 
     # Function to display balance after transfer of funds from entertainment to cloth category
@@ -145,7 +177,7 @@ class Budget:
         print("ENTERTAINMENT TO CLOTH TRANSFER")
         self.withdrawal()
         self.clothing_balance = self.clothing_balance + self.entertainment_withdrawal
-        print(f"Clothing balance = {self.clothing_balance}")
+        print(f"Clothing balance = ${self.clothing_balance}")
         self.options()
 
     # Function to prompt user if he/she wants to perform another operation
