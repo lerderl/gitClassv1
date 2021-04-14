@@ -21,3 +21,11 @@ dictionary2["key6"] = "value6"
 print(dictionary1)
 print(aSampleList)
 print(dictionary2)
+
+dictionary2.pop("key4")
+
+print(dictionary2)
+
+# Dictionary loop
+for key, value in dictionary1.items():
+    print("I have " + key + " relating with " + value)
