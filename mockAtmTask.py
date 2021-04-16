@@ -15,7 +15,7 @@ database = {}  # dictionary
 def init():
     print("Welcome to bankPYTHON")
 
-    have_account = int(input("Do you have account with us: 1 (yes) 2 (no) \n"))
+    have_account = int(input("Do you have an account with us? 1 (yes) 2 (no) \n"))
 
     if have_account == 1:
         login()
@@ -57,7 +57,7 @@ def register():
     email = input("What is your email address? \n")
     first_name = input("What is your first name? \n")
     last_name = input("What is your last name? \n")
-    password = input("create a password for yourself \n")
+    password = input("Create a password for yourself \n")
 
     account_number = generation_account_number()
 
